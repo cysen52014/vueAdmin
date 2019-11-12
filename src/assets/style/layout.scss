@@ -1,0 +1,283 @@
+.app-wrapper {
+  .app-body {
+    height: calc(100% - 71px);
+    position: relative;
+  }
+
+  .sidebar-container {
+    width: 230px;
+    height: 100%;
+    height: 100%;
+    // border-right: 1px solid #d9d8d8;
+    background-color: #fff;
+    position: relative;
+    z-index: 9;
+
+    .el-menu {
+      border: none;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
+
+  .main-container {
+    width: calc(100% - 310px);
+    height: 100%;
+    right: 40px;
+    position: absolute;
+    top: 0;
+    // background: #fff;
+  }
+
+
+
+  //--- start header ---//
+
+  .app-header {
+    height: 70px;
+    border-bottom: 1px solid #d9d8d8;
+    position: relative;
+    z-index: 10;
+    background-color: #fff;
+
+    .header-logo {
+      width: 230px;
+      height: 100%;
+      float: left;
+      border-right: 1px solid #d9d8d8;
+      overflow: hidden;
+
+      img {
+        display: block;
+        margin: 5px auto;
+      }
+    }
+
+    .menu-btn__click {
+      width: 64px;
+      height: 100%;
+      line-height: 100%;
+      font-size: 32px;
+      text-align: center;
+      display: none;
+      color: #409EFF;
+
+      i {
+        position: relative;
+        top: 15px;
+      }
+    }
+
+
+    .header-nav {
+      width: calc(100% - 231px);
+      float: left;
+
+      ul {
+        padding: 0 0;
+        margin: 0 0 0 20px;
+
+        li {
+          list-style: none;
+          height: 68px;
+          line-height: 68px;
+          width: 98px;
+          text-align: center;
+          color: #333333;
+          margin-right: 15px;
+          cursor: pointer;
+          float: left;
+          border-bottom: 2px solid #fff;
+
+          &.is-active {
+            border-bottom: 2px solid #436fed;
+            color: #436fed;
+          }
+        }
+      }
+    }
+
+    .avatar-container {
+      position: absolute;
+      height: 70px;
+      line-height: 70px;
+      display: block;
+      right: 35px;
+      top: 0;
+
+      .avatar-wrapper {
+        cursor: pointer;
+        position: relative;
+        color: #595959;
+
+        .user-name {
+          display: inline-block;
+          padding-right: 20px;
+        }
+
+        .el-icon-caret-bottom {
+          position: absolute;
+          right: 0px;
+          top: 26px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  //--- end header ---//
+
+  //--- start table ---//
+  .page-table__date{
+     margin: 0 0;
+     padding: 0px 20px 20px;
+     background: #fff;
+     border-radius: 5px;
+  }
+
+   //--- end table  ---//
+
+
+  //--- form ---//
+  .page-form__search {
+     padding: 20px 20px;
+     position: relative;
+     background: #fff;
+     border-radius: 5px;
+     margin: 20px 0;
+  }
+
+  //--- end form ---//
+
+}
+
+
+//--- start menubar ---//
+.sidebar-container {
+  .menu-bar {
+    width: 16px;
+    height: 48px;
+    line-height: 16px;
+    border-radius: 0 3px 3px 0;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    right: -16px;
+    margin-top: -24px;
+    text-align: center;
+  
+    i {
+      position: absolute;
+      top: 15px;
+      left: -3px;
+      font-size: 20px;
+      color: #333;
+      cursor: pointer;
+    }
+  }
+
+  .el-submenu.is-active .icon {
+    color: #436FED;
+  }
+
+  .el-submenu__title i {
+    font-size: 24px;
+  }
+
+  .el-submenu__title .wz {
+    color: #436FED;
+  }
+}
+
+//--- end menubar ---//
+
+//--- mobile reset ---//
+.isMobile {
+  .app-header {
+    .header-logo {
+      width: 64px;
+    }
+
+    .menu-btn__click {
+      display: inline-block;
+    }
+
+    .header-nav {
+      position: absolute;
+      width: 100%;
+      background-color: #409EFF;
+      display: none;
+
+      ul {
+        margin-left: 0;
+        width: 100%;
+
+        li {
+          width: 100%;
+          text-align: center;
+          color: #fff;
+          border-bottom: 1px solid #fff;
+
+          &.is-active {
+            color: #fff;
+            border-bottom: 1px solid #fff;
+          }
+        }
+      }
+    }
+  }
+  .sidebar-container {
+    box-shadow: rgba(0, 0, 0, 0.1) 5px 0 5px 2px;
+  }
+  .menu-bar {
+    box-shadow: rgba(0, 0, 0, 0.1) 3px 0 3px 1px;
+  }
+  .main-container {
+    width: calc(100% - 40px);
+    height: 100%;
+    position: absolute;
+    right: 20px;
+    top: 0;
+    background: #fff;
+  }
+  &.Collapse{
+    .sidebar-container {
+      width: 0px;
+      box-shadow: none;
+      ul.el-menu--collapse{
+        display: none;
+      }
+    }
+    
+  }
+  .el-time-range-picker{
+     width: 100%;
+  }
+}
+
+// isPc
+
+.isPc {
+  .app-header {
+    .header-logo {
+      width: 64px;
+    }
+  }
+  .sidebar-container {
+    width: 64px;
+
+    span.wz {
+      display: none;
+    }
+    
+    .el-submenu__icon-arrow {
+      display: none;
+    }
+  }
+
+  .main-container {
+    width: calc(100% - 144px);
+  }
+
+}

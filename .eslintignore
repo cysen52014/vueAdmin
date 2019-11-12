@@ -1,0 +1,9 @@
+build/*.js
+config/*.js
+src/assets
+src/views/datastatistics
+src/views/reportstatistics
+src/utils/Tool.js
+src/components/tableCollapse.vue
+src/components/tabView.vue
+src/views/yardManage

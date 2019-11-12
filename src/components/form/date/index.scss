@@ -1,0 +1,63 @@
+.cy__form-item {
+  .ys__form-item-mid.ys__form-date {
+    .el-input__inner {
+      width: 480px;
+    }
+  }
+}
+
+.vx-calendar--date {
+  height: 38px;
+  line-height: 38px;
+}
+
+.vx-tab--item {
+  height: 38px;
+  line-height: 38px;
+  font-size: 14px;
+}
+
+.vx-calendar--header {
+  height: 38px;
+  line-height: 38px;
+  font-size: 14px;
+
+  .vx-arrow {
+    width: 12px !important;
+    height: 12px !important;
+  }
+}
+
+.vx-daterange-picker--cancel,
+.vx-daterange-picker--clearable,
+.vx-daterange-picker--confirm {
+  height: 38px;
+  line-height: 38px;
+  width: 64px;
+}
+
+.vx-calendar-range--month,
+.vx-calendar-range--quarter {
+  height: 38px;
+  line-height: 38px;
+}
+
+.vx-input--wrapper {
+  height: 32px;
+  border: 1px solid #DCDFE6;
+  border-radius: 4px;
+  &.is-focus{
+    border: 1px solid #409EFF;
+  }
+  .vx-arrow {
+    width: 8px !important;
+    height: 8px !important;
+    margin-right: 12px;
+  }
+}
+
+
+.vx-input--wrapper input.vx-input--control{
+    padding:0 15px;
+    color: #606266;
+}
