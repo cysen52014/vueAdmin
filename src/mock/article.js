@@ -1,5 +1,4 @@
 import Mock from "mockjs";
-import { param2Obj } from "@/utils";
 
 const List = [];
 const count = 92;
@@ -30,12 +29,10 @@ for (let i = 0; i < count; i++) {
 
 export default {
   getList: config => {
-    const { importance, status, title, pageNo = 1, pageSize = 10, sort } = param2Obj(config.url);
+    const { pageNum = 1, pageSize = 10, sort } = config;
 
     let mockList = List.filter(item => {
-      if (importance && item.importance !== +importance) return false;
       if (status && item.status !== status) return false;
-      if (title && item.title.indexOf(title) < 0) return false;
       return true;
     });
 
@@ -43,28 +40,16 @@ export default {
       mockList = mockList.reverse();
     }
 
-    const pageList = mockList.filter((item, index) => index < pageSize * pageNo && index >= pageSize * (pageNo - 1));
+    const pageList = mockList.filter((item, index) => index < pageSize * pageNum && index >= pageSize * (pageNum - 1));
 
     return {
-      code: "0000",
+      errorCode: "0",
       data: {
         total: mockList.length,
         list: pageList
       },
       msg: "success"
     };
-  },
-  getArticle: (config) => {
-    const { id } = param2Obj(config.url);
-    for (const article of List) {
-      if (article.id === +id) {
-        return {
-          code: "0000",
-          data: article,
-          msg: ""
-        };
-      }
-    }
   },
   createArticle: () => ({
     code: "0000",

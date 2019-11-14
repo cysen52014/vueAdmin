@@ -3,14 +3,17 @@
     <div class="header-logo">
       <img src="@/assets/images/logo.png" />
     </div>
-    <div class="menu-btn__click">
+    <div class="menu-btn__click" @click="showNav">
       <i class="el-icon-menu"></i>
     </div>
-    <div class="header-nav">
+    <div
+      :class="isMobile && navVisble ? 'header-nav move__down' : 'header-nav'"
+      v-if="isMobile && navVisble || !isMobile"
+    >
       <ul>
         <li
           :class="currentRouterIndex*1 === index ? 'is-active' : ''"
-          @click="changeSiderBar(index)"
+          @click="changeSiderBar(route,index)"
           :key="index"
           v-for="(route,index) in asyncRouter"
         >{{route.name}}</li>
@@ -41,19 +44,28 @@ export default {
       "asyncRouter",
       "currentRouterIndex",
       "currentRouter",
-      "sidebarActiveIndex"
+      "sidebarActiveIndex",
+      "isMobile"
     ])
   },
   data() {
     return {
       user: "",
-      navList: []
+      navList: [],
+      navVisble: false
     };
   },
-  created() {
+  mounted() {
     this.user = store.state.user.name
       ? store.state.user.name
       : localStorage.getItem("username");
+    document.addEventListener(
+      "click",
+      () => {
+        this.navVisble = false;
+      },
+      false
+    );
   },
   methods: {
     ...mapActions(["changeSidebarRouter", "changeSidebarActiveIndex"]),
@@ -62,14 +74,21 @@ export default {
         location.reload();
       });
     },
+    showNav(evt) {
+      evt.cancelBubble = true;
+      this.navVisble = !this.navVisble;
+    },
     getDefIndex(level) {
       let i = "";
       if (level.childrens) {
         const child = level.childrens.filter(r => r.hidden === false);
         i = this.getDefIndex(child[0]);
+        this.changPath(child[0]);
       } else {
         i = level.index;
+        this.changPath(level);
       }
+
       return i;
     },
     changPath(obj) {
@@ -85,10 +104,11 @@ export default {
         this.changeSidebarActiveIndex(i);
       } else {
         i = router.index;
+        this.changPath(router);
         this.changeSidebarActiveIndex(i);
       }
     },
-    changeSiderBar(index) {
+    changeSiderBar(route, index) {
       this.changeSidebarRouter(index);
       this.getActive();
     }

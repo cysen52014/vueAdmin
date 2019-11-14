@@ -40,7 +40,6 @@ export default {
   computed: {
     ...mapGetters(["currentRouter", "sidebar", "sidebarActiveIndex"]),
     isCollapse() {
-      console.log("this.sidebar.opened", this.sidebar.opened);
       return this.sidebar.opened;
     },
     getSideBarActiveKey() {
@@ -50,7 +49,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["toggleSodebar"]),
+    ...mapActions(["toggleSodebar", "toggleMobile"]),
     menuOpen(idx) {
       if (this.openeds.indexOf(idx) < 0) {
         this.openeds.push(idx);
@@ -64,12 +63,14 @@ export default {
       this.toggleSodebar(!this.sidebar.opened);
       const wd = document.documentElement.clientWidth;
       if (wd < 720) {
+        this.toggleMobile(true);
         if (this.sidebar.opened) {
           document.body.className = "isMobile Collapse";
         } else {
           document.body.className = "isMobile";
         }
       } else {
+        this.toggleMobile(false);
         if (this.sidebar.opened) {
           document.body.className = "isPc";
         } else {
@@ -80,9 +81,11 @@ export default {
     isMoblieDevice() {
       const wd = document.documentElement.clientWidth;
       if (wd > 720) {
+        this.toggleMobile(false);
         document.body.className = "";
       } else {
         this.toggleSodebar(!this.sidebar.opened);
+        this.toggleMobile(true);
         document.body.className = "isMobile Collapse";
       }
     }

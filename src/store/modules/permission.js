@@ -40,7 +40,7 @@ const permission = {
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {
-      state.asyncRouter = routers;
+      state.asyncRouter = Conf.HAS_TOP_NAV ? routers : [];
       state.currentRouter = Conf.HAS_TOP_NAV ? routers[state.currentRouterIndex].childrens : routers;
       const LayoutComp = [{
         path: "/",

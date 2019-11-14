@@ -10,16 +10,16 @@ const app = {
     TOGGLE_SIDEBAR: state => {
       state.sidebar.opened = !state.sidebar.opened;
     },
-    TOGGLE_MOBILE: state => {
-      state.isMobile = !state.isMobile;
+    TOGGLE_MOBILE: (state, val) => {
+      state.isMobile = val;
     }
   },
   actions: {
     toggleSodebar: ({ commit }) => {
       commit("TOGGLE_SIDEBAR");
     },
-    toggleMobile: ({ commit }) => {
-      commit("TOGGLE_MOBILE");
+    toggleMobile: ({ commit }, val) => {
+      commit("TOGGLE_MOBILE", val);
     }
   }
 };

@@ -1,45 +1,21 @@
 <template>
   <div class="page-content">
     <div class="page-form__search">
-      <!-- <div class="ys-form-item">
-        <div class="ys-form-item-label">账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</div>
-        <div class="ys-form-item-mid">
-          <el-input v-model="form.user" placeholder="账号"></el-input>
-        </div>
-      </div>
-      <div class="ys-form-item">
-        <div class="ys-form-item-label">活动区域</div>
-        <div class="ys-form-item-mid">
-          <el-select v-model="form.region" placeholder="活动区域">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </div>
-      </div>
-      <div class="ys-form-item">
-        <div class="ys-form-item-label">日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期</div>
-        <div class="ys-form-item-mid">
-          <el-date-picker
-            class="date-range"
-            v-model="form.dateRange"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
-            :editable="false"
-            :default-time="['00:00:00','23:59:59']"
-          ></el-date-picker>
-        </div>
-      </div>-->
-      <Form :btns="form.btns" :data="form.data" />
+      <Form :btns="form.btns" :data="form.data" :linkRef="'ys-ref-table'" />
     </div>
     <div class="page-table__date">
-      <ysvue-table ref="TABLE" :option="table.option" :data="table.data"></ysvue-table>
+      <ysvue-table
+        ref="ys-ref-table"
+        :option="table.option"
+        :data="table.list"
+        @paginationChance="paginationChance"
+      ></ysvue-table>
     </div>
   </div>
 </template>
 <script>
 import Form from "@/components/form/index.vue";
+import { getList } from "@/api/test.js";
 export default {
   components: {
     Form
@@ -52,7 +28,6 @@ export default {
         dateRange: "",
         btns: [
           {
-            action: "seacch",
             type: "primary",
             label: "查询"
           },
@@ -74,22 +49,9 @@ export default {
             type: "select",
             label: "活动区域",
             field: "atv",
-            value: "",
+            value: "1",
             placeholder: "活动区域",
-            options: [
-              {
-                label: "选项一",
-                value: "1"
-              },
-              {
-                label: "选项二",
-                value: "2"
-              },
-              {
-                label: "选项三",
-                value: "3"
-              }
-            ]
+            options: []
           },
           {
             type: "date",
@@ -105,17 +67,66 @@ export default {
         ]
       },
       table: {
-        option: {},
-        data: []
+        list: [],
+        option: {
+          isPagination: true,
+          paginationTotal: 18,
+          paginationCurrent: 1,
+          paginationSize: 10,
+          isIndex: true,
+          execMethod: {
+            methods: getList,
+            parmas: {},
+            errorCodeValue: "0",
+            errorType: "error"
+          },
+          column: [
+            {
+              label: "姓名",
+              prop: "name"
+            },
+            {
+              label: "地址",
+              prop: "address"
+            },
+            {
+              label: "时间",
+              prop: "date"
+            }
+          ]
+        }
       }
     };
   },
+  created() {
+    // this.getTableData();
+    this.getOPs();
+  },
   methods: {
-    seacch(val) {
-      console.log(val);
-    },
     export(val) {
       console.log(val);
+    },
+    paginationChance(val) {
+      console.log("val", val);
+      // this.table.option.paginationCurrent = val.data.current;
+    },
+    getOPs() {
+      setTimeout(() => {
+        this.form.data[1].options = [
+          {
+            label: "选项一",
+            value: "1"
+          },
+          {
+            label: "选项二",
+            value: "2"
+          },
+          {
+            label: "选项三",
+            value: "3"
+          }
+        ];
+      }, 1000);
     }
   }
 };

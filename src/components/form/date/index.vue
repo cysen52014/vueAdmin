@@ -12,6 +12,7 @@
         :default-time="option.defaultTime || ['00:00:00','23:59:59']"
         :clearable="option.clearable || false"
         :disabled="option.disabled || false"
+        @change="changeV"
       ></el-date-picker>
       <daterange
         v-else
@@ -20,6 +21,7 @@
         :separator="option.rangeSeparator || ' 至 '"
         :format="option.valueFormat || 'YYYY-MM-DD HH:mm:ss'"
         :placeholder="option.placeholder"
+         @change="changeV"
       ></daterange>
     </div>
   </div>

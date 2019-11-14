@@ -2,7 +2,7 @@
 import "./index.scss";
 import Daterange from "../../daterange/index.vue";
 export default {
-  name: "Input",
+  name: "Date",
   filters: {
     year(val) {
       return val.replace("YYYY", "yyyy");
@@ -27,6 +27,13 @@ export default {
       } else {
         return false;
       }
+    }
+  },
+  methods: {
+    changeV(val) {
+      const conf = {};
+      conf[this.option.field] = val;
+      this.$espread.dispatch(this, "ysvueForm", "change", conf);
     }
   }
 };

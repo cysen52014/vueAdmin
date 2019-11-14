@@ -1,3 +1,4 @@
+/* eslint-disable getter-return */
 
 const components = {
   Input: () => import(`./input/index.vue`),
@@ -19,6 +20,10 @@ export default {
     data: {// 数据
       type: Array,
       default: () => []
+    },
+    linkRef: {// 数据
+      type: String,
+      default: ""
     }
   },
   data() {
@@ -33,23 +38,28 @@ export default {
       const E = type.substr(1);
       return T + E;
     },
+    change(val) {
+      this.formData = Object.assign(this.formData, val);
+      console.log("this.formData", this.formData);
+    },
     handleFormSubmit(btn) {
-      this.formData = this.data.map(r => {
-        let conf = {};
-        if (r.type === "date") {
-          conf = {
-            field: r.field,
-            value: r.value
-          };
-        } else {
-          conf = {
-            field: r.field,
-            value: r.value
-          };
-        }
-        return conf;
+      this.data.forEach(r => {
+        this.formData[r.field] = r.value;
       });
-      this.$parent[btn.action](this.formData);
+      window["__storevueappdate__state_formData"] = this.formData;
+      console.log("this.formData", this.formData);
+      if (btn.action) {
+        if (btn.params) {
+          this.$parent[btn.action](btn.params);
+        } else {
+          this.$parent[btn.action](this.formData);
+        }
+      } else {
+        if (this.$parent.$refs[this.linkRef]) {
+          this.$parent.$refs[this.linkRef]._props.option.paginationCurrent = 1;
+          this.$parent.$refs[this.linkRef].getTableData();
+        }
+      }
     }
   }
 };

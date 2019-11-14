@@ -9,12 +9,17 @@ import "@/assets/style/common.scss";
 import App from "./App";
 import router from "./router";
 import store from "./store";
-// import "./mock";
+import "./mock";
 import "./permission"; // permission control
 import "./debug"; // 错误日志收集
 
+import broadcast from "@/mixins/broadcast";
+Vue.prototype.$espread = broadcast;
+
 import ysVue from "ys-vue";
 Vue.use(ysVue);
+
+window.__storevueappdate__state_formData = {};
 
 Vue.use(ElementUI, {
   size: "small" // default: medium

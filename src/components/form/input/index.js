@@ -7,5 +7,12 @@ export default {
         return {};
       }
     }
+  },
+  methods: {
+    change(val) {
+      const conf = {};
+      conf[this.option.field] = val;
+      this.$espread.dispatch(this, "ysvueForm", "change", conf);
+    }
   }
 };

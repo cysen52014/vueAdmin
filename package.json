@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build:test": "cross-env NODE_ENV=test env_config=test node build/build.js",
+    "build:dev": "cross-env NODE_ENV=dev env_config=dev node build/build.js",
     "build:pre": "cross-env NODE_ENV=pre env_config=pre node build/build.js",
     "build": "cross-env NODE_ENV=prod env_config=prod node build/build.js",
     "build:report": "cross-env npm_config_report=true NODE_ENV=prod env_config=prod node build/build.js",
@@ -25,7 +25,7 @@
     "vue-router": "3.0.2",
     "vue-transition.css": "^1.0.2",
     "vuex": "3.0.1",
-    "ys-vue": "^0.1.31"
+    "ys-vue": "^0.1.42"
   },
   "devDependencies": {
     "autoprefixer": "8.5.0",

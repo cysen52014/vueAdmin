@@ -220,6 +220,7 @@ export default {
       const endDate = moment(new Date(this.timeValue[1])).format(this.format);
       this.dateValue = startDate + this.rangeSeparator + endDate;
       this.$emit("input", this.timeValue);
+      this.$emit("change", this.timeValue);
       return [startDate, endDate];
     },
     initCalendar() {

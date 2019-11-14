@@ -1,3 +1,4 @@
+/* eslint-disable getter-return */
 import "./index.scss";
 export default {
   name: "Select",
@@ -7,6 +8,13 @@ export default {
       default: () => {
         return {};
       }
+    }
+  },
+  methods: {
+    changeV(val) {
+      const conf = {};
+      conf[this.option.field] = val;
+      this.$espread.dispatch(this, "ysvueForm", "change", conf);
     }
   }
 };

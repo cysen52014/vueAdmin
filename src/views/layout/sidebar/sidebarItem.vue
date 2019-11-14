@@ -68,9 +68,6 @@ export default {
       onlyOneChild: null
     };
   },
-  created() {
-    console.log("item", this.item);
-  },
   methods: {
     resolvePath(url, index) {
       this.$parent.$parent.changeActive(index);
