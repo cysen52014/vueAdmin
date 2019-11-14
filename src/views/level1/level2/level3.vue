@@ -1,7 +1,12 @@
 <template>
   <div class="page-content">
     <div class="page-form__search">
-      <Form :btns="form.btns" :data="form.data" :linkRef="'ys-ref-table'" />
+      <Form
+        :btns="form.btns"
+        :data="form.data"
+        :linkRef="'ys-ref-table'"
+        :callActions="form.callActions"
+      />
     </div>
     <div class="page-table__date">
       <ysvue-table
@@ -26,6 +31,7 @@ export default {
         user: "",
         region: "",
         dateRange: "",
+        callActions: ["getCount"],
         btns: [
           {
             type: "primary",
@@ -108,6 +114,9 @@ export default {
   methods: {
     export(val) {
       console.log(val);
+    },
+    getCount(val) {
+      console.log("getCount", val);
     },
     paginationChance(val) {
       console.log("val", val);
