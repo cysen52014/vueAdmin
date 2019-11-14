@@ -30,7 +30,6 @@ export default {
     changeV(val) {
       const conf = {};
       conf[this.option.field] = val;
-      console.log("chang");
       this.$espread.dispatch(this, "ysvueForm", "change", conf);
     }
   }

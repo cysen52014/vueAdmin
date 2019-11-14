@@ -66,6 +66,7 @@ const permission = {
   },
   actions: {
     GenerateRoutes({ commit }, data) {
+      if (data.rowrouter.length < 1) return;
       return new Promise(resolve => {
         var accessedRouters = [];
         if (data.rowrouter.length > 1) {

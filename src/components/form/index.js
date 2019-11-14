@@ -44,7 +44,6 @@ export default {
     },
     change(val) {
       this.formData = Object.assign(this.formData, val);
-      console.log("this.formData", this.formData);
     },
     triggleTableData() {
       this.data.forEach(r => {
@@ -62,7 +61,6 @@ export default {
         this.formData[r.field] = r.value;
       });
       window["__storevueappdate__state_formData"] = this.formData;
-      console.log("this.formData", this.formData);
       if (btn.action) {
         if (btn.params) {
           this.$parent[btn.action](btn.params);
@@ -70,6 +68,7 @@ export default {
           this.$parent[btn.action](this.formData);
         }
       } else {
+        console.log(this.$parent.$refs[this.linkRef]);
         if (this.$parent.$refs[this.linkRef]) {
           this.$parent.$refs[this.linkRef]._props.option.paginationCurrent = 1;
           this.$parent.$refs[this.linkRef].getTableData();
