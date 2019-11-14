@@ -49,9 +49,10 @@ export default {
             type: "select",
             label: "活动区域",
             field: "atv",
-            value: "1",
+            value: "",
             placeholder: "活动区域",
-            options: []
+            options: [],
+            async: true
           },
           {
             type: "date",
@@ -74,6 +75,8 @@ export default {
           paginationCurrent: 1,
           paginationSize: 10,
           isIndex: true,
+          interfaceWait: true,
+          isLoading: true,
           execMethod: {
             methods: getList,
             parmas: {},

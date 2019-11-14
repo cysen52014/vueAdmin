@@ -20,6 +20,7 @@ import ysVue from "ys-vue";
 Vue.use(ysVue);
 
 window.__storevueappdate__state_formData = {};
+window.__storevueappdate__state_queue = {};
 
 Vue.use(ElementUI, {
   size: "small" // default: medium

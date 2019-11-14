@@ -31,6 +31,10 @@ export default {
       formData: {}
     };
   },
+  created() {
+    window["__storevueappdate__state_queue"]["obj"] = this.data.filter(q => q.type === "select" && q.async === true);
+    window["__storevueappdate__state_queue"]["count"] = 0;
+  },
   components: components,
   methods: {
     getAsyncComponent(type) {
@@ -41,6 +45,17 @@ export default {
     change(val) {
       this.formData = Object.assign(this.formData, val);
       console.log("this.formData", this.formData);
+    },
+    triggleTableData() {
+      this.data.forEach(r => {
+        this.formData[r.field] = r.value;
+      });
+      window["__storevueappdate__state_formData"] = this.formData;
+
+      if (this.$parent.$refs[this.linkRef]) {
+        this.$parent.$refs[this.linkRef]._props.option.paginationCurrent = 1;
+        this.$parent.$refs[this.linkRef].getTableData();
+      }
     },
     handleFormSubmit(btn) {
       this.data.forEach(r => {
