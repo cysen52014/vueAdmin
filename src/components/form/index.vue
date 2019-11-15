@@ -5,7 +5,7 @@
         <component :is="getAsyncComponent(form.type)" :option="form"></component>
       </div>
     </div>
-    <div class="cy__form-btn" :style="'width:'+ btns.length * ((btns.width || 56) + 10) + 'px'">
+    <div class="cy__form-btn" :style="'width:'+ getW + 'px'">
       <el-button @click="handleFormSubmit(btn)" :type="btn.type" :key="index" v-for="(btn,index) in btns">{{btn.label}}</el-button>
     </div>
   </div>

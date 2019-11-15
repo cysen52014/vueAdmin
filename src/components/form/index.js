@@ -30,6 +30,16 @@ export default {
       default: () => []
     }
   },
+  computed: {
+    getW() {
+      let w = 0;
+      this.btns.forEach(btn => {
+        w += (btn.width || 56) + 10;
+      });
+      console.log(w, "w");
+      return w;
+    }
+  },
   data() {
     return {
       formData: {}
@@ -45,9 +55,7 @@ export default {
     }
     window["__storevueappdate__state_queue"]["obj"] = this.data.filter(q => q.type === "select" && (q.async === true || q.computed));
     window["__storevueappdate__state_queue"]["count"] = 0;
-    this.data.forEach(r => {
-      this.formData[r.field] = r.value;
-    });
+    this.setFormDate();
     if (window["__storevueappdate__state_queue"]["obj"].length < 1) {
       this.execActions();
     }
@@ -70,9 +78,7 @@ export default {
       this.formData = Object.assign(this.formData, val);
     },
     triggleTableData() {
-      this.data.forEach(r => {
-        this.formData[r.field] = r.value;
-      });
+      this.setFormDate();
       window["__storevueappdate__state_formData"] = this.formData;
       this.execActions();
       if (this.$parent.$refs[this.linkRef]) {
@@ -80,10 +86,19 @@ export default {
         this.$parent.$refs[this.linkRef].getTableData();
       }
     },
-    handleFormSubmit(btn) {
+    setFormDate() {
       this.data.forEach(r => {
-        this.formData[r.field] = r.value;
+        if (r.arr2String) {
+          if (r.value) {
+            this.formData[r.field] = r.value.join(",");
+          }
+        } else {
+          this.formData[r.field] = r.value;
+        }
       });
+    },
+    handleFormSubmit(btn) {
+      this.setFormDate();
       window["__storevueappdate__state_formData"] = this.formData;
       this.execActions();
       if (btn.action) {
