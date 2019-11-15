@@ -13,7 +13,7 @@ export default {
   watch: {
     "option.options": {
       handler(newName, oldName) {
-        if (newName.length > 0) {
+        if (newName && newName.length > 0) {
           window["__storevueappdate__state_queue"]["count"]++;
           this.option.value = newName[0].value;
           this.changeV(this.option.value);
@@ -25,6 +25,9 @@ export default {
       immediate: true,
       deep: true
     }
+  },
+  created() {
+    console.log("option", this.option);
   },
   methods: {
     changeV(val) {

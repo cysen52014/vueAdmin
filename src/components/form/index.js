@@ -36,7 +36,14 @@ export default {
     };
   },
   created() {
-    window["__storevueappdate__state_queue"]["obj"] = this.data.filter(q => q.type === "select" && q.async === true);
+    console.log(typeof (window["__storevueappdate__state_queue"]));
+    if (typeof (window["__storevueappdate__state_queue"]) === "undefined") {
+      window["__storevueappdate__state_queue"] = {};
+    }
+    if (typeof (window["__storevueappdate__state_formData"]) === "undefined") {
+      window["__storevueappdate__state_formData"] = {};
+    }
+    window["__storevueappdate__state_queue"]["obj"] = this.data.filter(q => q.type === "select" && (q.async === true || q.computed));
     window["__storevueappdate__state_queue"]["count"] = 0;
     this.data.forEach(r => {
       this.formData[r.field] = r.value;
@@ -48,9 +55,11 @@ export default {
   components: components,
   methods: {
     execActions() {
-      this.callActions.forEach(func => {
-        this.$parent[func](this.formData);
-      });
+      if (this.execActions.length > 0) {
+        this.callActions.forEach(func => {
+          this.$parent[func](this.formData);
+        });
+      }
     },
     getAsyncComponent(type) {
       const T = type.substr(0, 1).toUpperCase();
