@@ -36,7 +36,6 @@ export default {
       this.btns.forEach(btn => {
         w += (btn.width || 56) + 10;
       });
-      console.log(w, "w");
       return w;
     }
   },
@@ -46,7 +45,6 @@ export default {
     };
   },
   created() {
-    console.log(typeof (window["__storevueappdate__state_queue"]));
     if (typeof (window["__storevueappdate__state_queue"]) === "undefined") {
       window["__storevueappdate__state_queue"] = {};
     }
@@ -55,15 +53,16 @@ export default {
     }
     window["__storevueappdate__state_queue"]["obj"] = this.data.filter(q => q.type === "select" && (q.async === true || q.computed));
     window["__storevueappdate__state_queue"]["count"] = 0;
-    this.setFormDate();
+    // this.setFormDate();
     if (window["__storevueappdate__state_queue"]["obj"].length < 1) {
       this.execActions();
+      this.setFormDate();
     }
   },
   components: components,
   methods: {
     execActions() {
-      if (this.execActions.length > 0) {
+      if (this.callActions.length > 0) {
         this.callActions.forEach(func => {
           this.$parent[func](this.formData);
         });

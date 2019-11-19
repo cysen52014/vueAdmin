@@ -15,7 +15,9 @@ export default {
       handler(newName, oldName) {
         if (newName && newName.length > 0) {
           window["__storevueappdate__state_queue"]["count"]++;
-          this.option.value = newName[0].value;
+          if (this.option.async || this.option.computed) {
+            this.option.value = newName[0].value;
+          }
           this.changeV(this.option.value);
           if (window["__storevueappdate__state_queue"]["obj"].length === window["__storevueappdate__state_queue"]["count"]) {
             this.$espread.dispatch(this, "ysvueForm", "triggleTableData", {});

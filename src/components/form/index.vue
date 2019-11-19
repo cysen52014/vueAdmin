@@ -26,7 +26,7 @@ export default Index;
   margin-bottom: 10px;
   .ys__form-item-label {
     display: inline-block;
-    width: 80px;
+    width: 78px;
     text-align: right;
     margin-right: 5px;
   }
