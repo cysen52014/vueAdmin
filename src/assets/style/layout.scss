@@ -22,15 +22,17 @@
   }
 
   .main-container {
-    width: calc(100% - 310px);
+    width: calc(100% - 230px);
     height: 100%;
-    right: 40px;
+    right: 0px;
     position: absolute;
     top: 0;
+    overflow: auto;
+    .app-main{
+      margin: 0 40px;
+    }
     // background: #fff;
   }
-
-
 
   //--- start header ---//
 
@@ -61,14 +63,13 @@
       font-size: 32px;
       text-align: center;
       display: none;
-      color: #409EFF;
+      color: #409eff;
 
       i {
         position: relative;
         top: 15px;
       }
     }
-
 
     .header-nav {
       width: calc(100% - 231px);
@@ -138,10 +139,9 @@
 
   //--- end table  ---//
 
-
   //--- form ---//
   .page-form__search {
-    padding: 20px 20px;
+    padding: 20px 15px 10px;
     position: relative;
     background: #fff;
     border-radius: 5px;
@@ -149,9 +149,7 @@
   }
 
   //--- end form ---//
-
 }
-
 
 //--- start menubar ---//
 .sidebar-container {
@@ -178,7 +176,7 @@
   }
 
   .el-submenu.is-active .icon {
-    color: #436FED;
+    color: #436fed;
   }
 
   .el-submenu__title i {
@@ -186,7 +184,7 @@
   }
 
   .el-submenu__title .wz {
-    color: #436FED;
+    color: #436fed;
   }
 }
 
@@ -252,7 +250,7 @@
     .header-nav {
       position: absolute;
       width: 100%;
-      background-color: #409EFF;
+      background-color: #409eff;
       display: none;
 
       ul {
@@ -271,7 +269,6 @@
           }
         }
       }
-
       &.move__down {
         display: block;
       }
@@ -287,19 +284,19 @@
   }
 
   .main-container {
-    width: calc(100% - 40px);
+    width: 100%;
     height: 100%;
     position: absolute;
-    right: 20px;
+    right: 0px;
     top: 0;
-    background: #fff;
+    .app-main{
+      margin: 0 20px;
+    }
   }
-
   &.Collapse {
     .sidebar-container {
       width: 0px;
       box-shadow: none;
-
       ul.el-menu--collapse {
         display: none;
       }
@@ -333,28 +330,18 @@
       }
 
       .btn-prev {
-        position: absolute;
-        left: 0;
-        top: 37px;
         min-width: 20px;
         padding: 0;
       }
 
       .btn-next {
-        position: absolute;
-        right: 0;
-        top: 37px;
         min-width: 20px;
         padding: 0;
       }
 
       .el-pager {
-        position: absolute;
-        left: 32px;
-        top: 37px;
-
         li {
-          min-width: 17px;
+          min-width: 20px;
           margin: 0 2px;
         }
       }
@@ -362,7 +349,7 @@
       .el-pagination__jump {
         position: absolute;
         right: 6px;
-        top: 0;
+        top: 35px;
         margin: 0 0;
         
       }
@@ -392,7 +379,15 @@
   }
 
   .main-container {
-    width: calc(100% - 144px);
+    width: calc(100% - 64px);
   }
+}
 
+.app-main {
+  padding: 25px 0;
+}
+
+.box {
+  background: #fff;
+  border-radius: 10px;
 }

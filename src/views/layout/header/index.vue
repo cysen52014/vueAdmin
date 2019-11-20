@@ -3,7 +3,7 @@
     <div class="header-logo">
       <img src="@/assets/images/logo.png" />
     </div>
-    <div class="menu-btn__click" @click="showNav">
+    <div class="menu-btn__click" @click="showNav" v-if="showTopNavBtn">
       <i class="el-icon-menu"></i>
     </div>
     <div
@@ -36,7 +36,7 @@
 <script>
 import store from "@/store";
 import { mapGetters, mapActions } from "vuex";
-// import Conf from "../../../../config/nav.conf";
+import Conf from "../../../../config/nav.conf";
 export default {
   name: "AppHeader",
   computed: {
@@ -46,7 +46,10 @@ export default {
       "currentRouter",
       "sidebarActiveIndex",
       "isMobile"
-    ])
+    ]),
+    showTopNavBtn() {
+      return Conf.HAS_TOP_NAV;
+    }
   },
   data() {
     return {
@@ -66,6 +69,9 @@ export default {
       },
       false
     );
+    if (this.$route.path === "/") {
+      this.getActive();
+    }
   },
   methods: {
     ...mapActions(["changeSidebarRouter", "changeSidebarActiveIndex"]),
@@ -88,7 +94,6 @@ export default {
         i = level.index;
         this.changPath(level);
       }
-
       return i;
     },
     changPath(obj) {
@@ -97,7 +102,6 @@ export default {
     getActive() {
       const router = this.currentRouter.filter(r => r.hidden === false)[0];
       let i = 0;
-      console.log("router", router);
       if (router && router.childrens) {
         const child = router.childrens.filter(r => r.hidden === false);
         i = this.getDefIndex(child[0]);

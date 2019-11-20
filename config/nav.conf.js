@@ -1,3 +1,3 @@
 export default {
-  HAS_TOP_NAV : true
+  HAS_TOP_NAV : false
 }

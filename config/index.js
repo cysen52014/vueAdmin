@@ -10,7 +10,7 @@ module.exports = {
     assetsPublicPath: "/",
     proxyTable: {
       "/advert": {
-        target: "http://saas1.api1.cheweiguanjia.com",
+        target: "http://192.168.1.161:8210",
         changeOrigin: true
       }
     },

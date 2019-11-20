@@ -9,7 +9,7 @@ import "@/assets/style/common.scss";
 import App from "./App";
 import router from "./router";
 import store from "./store";
-import "./mock";
+// import "./mock";
 import "./permission"; // permission control
 import "./debug"; // 错误日志收集
 

@@ -21,6 +21,11 @@ export default Index;
 .cy__form{
   flex: 1;
 }
+
+.cy__form-btn {
+  text-align: right;
+}
+
 .cy__form-item {
   display: inline-block;
   margin-bottom: 10px;
@@ -56,6 +61,7 @@ export default Index;
     .ys__form-item-mid {
       display: block;
       width: 100%;
+      line-height: 32px;
       input,
       select {
         width: 100%;
