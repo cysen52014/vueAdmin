@@ -1,5 +1,5 @@
 /* eslint-disable getter-return */
-
+import moment from "moment";
 const components = {
   Input: () => import(`./input/index.vue`),
   Select: () => import(`./select/index.vue`),
@@ -91,6 +91,12 @@ export default {
           if (r.value) {
             this.formData[r.field] = r.value.join(",");
           }
+        } else if (r.val2Object) {
+          const k = Object.keys(r.val2Object);
+          r.value.forEach((rr, index) => {
+            this.formData[k[index]] = moment(rr).format(r.valueFormat || "YYYY-MM-DD HH:mm:ss");
+          });
+          delete this.formData[r.type];
         } else {
           this.formData[r.field] = r.value;
         }

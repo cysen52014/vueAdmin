@@ -6,11 +6,7 @@
     <div class="page-table__date">
       <ysvue-table ref="ys-ref-table" :option="table.option" :data="table.list"></ysvue-table>
     </div>
-    <el-dialog
-      :title="dialogTitle[dialogType]"
-      :visible.sync="dialogVisible"
-      @close="cancel"
-    >
+    <el-dialog :title="dialogTitle[dialogType]" :visible.sync="dialogVisible" @close="cancel">
       <el-form :model="dialogForm" :rules="dialogFormRules" ref="dialogForm" label-width="100px">
         <el-row class="c-m-b-20" :gutter="20">
           <el-col v-if="dialogType!==0">
@@ -183,7 +179,11 @@ export default {
             adapt: true, // 设配移动
             field: "date",
             value: [],
-            placeholder: "创建时间"
+            placeholder: "创建时间",
+            val2Object: {
+              startTime: "",
+              endTime: ""
+            }
           }
         ]
       },
