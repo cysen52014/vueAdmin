@@ -96,7 +96,7 @@ export default {
           r.value.forEach((rr, index) => {
             this.formData[k[index]] = moment(rr).format(r.valueFormat || "YYYY-MM-DD HH:mm:ss");
           });
-          delete this.formData[r.type];
+          delete this.formData[r.field];
         } else {
           this.formData[r.field] = r.value;
         }
