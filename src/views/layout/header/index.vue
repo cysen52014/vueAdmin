@@ -86,6 +86,7 @@ export default {
     },
     getDefIndex(level) {
       let i = "";
+      console.log("level", level);
       if (level.childrens) {
         const child = level.childrens.filter(r => r.hidden === false);
         i = this.getDefIndex(child[0]);
@@ -102,7 +103,8 @@ export default {
     getActive() {
       const router = this.currentRouter.filter(r => r.hidden === false)[0];
       let i = 0;
-      if (router && router.childrens) {
+      console.log("router", router);
+      if (router && !router.toJump && router.childrens) {
         const child = router.childrens.filter(r => r.hidden === false);
         i = this.getDefIndex(child[0]);
         this.changeSidebarActiveIndex(i);

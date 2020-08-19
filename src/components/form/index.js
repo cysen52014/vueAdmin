@@ -28,6 +28,10 @@ export default {
     callActions: {// 外部方法
       type: Array,
       default: () => []
+    },
+    cachformData: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -57,6 +61,9 @@ export default {
     if (window["__storevueappdate__state_queue"]["obj"].length < 1) {
       this.execActions();
       this.setFormDate();
+      if (this.cachformData) {
+        window["__storevueappdate__state_formData"] = this.formData;
+      }
     }
   },
   components: components,
@@ -75,6 +82,7 @@ export default {
     },
     change(val) {
       this.formData = Object.assign(this.formData, val);
+      console.log("this.formData", this.formData);
     },
     triggleTableData() {
       this.setFormDate();
