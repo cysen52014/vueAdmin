@@ -1,70 +1,7 @@
 import { constantRouterMap } from "@/router/index";
-import Tool from "@/utils/Tool";
+import GetRoutes from "@/utils/getRoutes";
 import Conf from "../../../config/nav.conf";
 import Layout from "@/views/layout";
-
-const getChildRoute = (children, index) => {
-  const childrenRoute = [];
-  const routreChild = Tool.compare(children, "sort");
-  for (let i = 0; i < routreChild.length; i++) {
-    const userRoutesItem = {};
-    userRoutesItem.meta = {};
-    userRoutesItem.meta.auth = true;
-    userRoutesItem.path = routreChild[i].href;
-    userRoutesItem.name = routreChild[i].title;
-    userRoutesItem.icon = routreChild[i].icon;
-    userRoutesItem.hidden = !routreChild[i].showFlag;
-    userRoutesItem.index = index + "-" + i;
-
-    childrenRoute.push(userRoutesItem);
-
-    const btn = routreChild[i].operate && routreChild[i].operate.match(
-      /authbtn\s*:\s*(["'a-zA-Z-,]+?['"])/gi
-    );
-    if (btn) {
-      const m = btn[0]
-        .replace(/authbtn\s*:\s*/gi, "")
-        .replace(/["']/gi, "")
-        .split(",");
-      m.forEach((r, index) => {
-        const n = r;
-        userRoutesItem.meta[n] = true;
-      });
-    }
-    console.log("meta", userRoutesItem.meta, routreChild[i].operate, btn);
-
-    const keepAlive = routreChild[i].operate && routreChild[i].operate.match(
-      /keepAlive\s*:\s*(true)\b/gi
-    );
-    if (keepAlive) {
-      userRoutesItem.meta["keepAlive"] = true;
-    }
-
-    if (routreChild[i].children) {
-      const allhide = userRoutesItem.childrens.every(r => r.showFlag === false);
-      console.log("allhide", allhide);
-      if (allhide) {
-        userRoutesItem.toJump = true;
-        userRoutesItem.component = resolve =>
-          require(["@/views" + routreChild[i].href + ".vue"], resolve);
-        permission.state.cachRouter.push(userRoutesItem);
-      }
-
-      const c = getChildRoute(routreChild[i].children, index + "-" + i);
-      userRoutesItem.childrens = c.level;
-    } else {
-      if (Conf.HAS_TOP_NAV && userRoutesItem.index.split("-").length === 2) {
-        userRoutesItem.toJump = true;
-      }
-      userRoutesItem.component = resolve =>
-        require(["@/views" + routreChild[i].href + ".vue"], resolve) || "";
-      permission.state.cachRouter.push(userRoutesItem);
-    }
-  }
-  return {
-    level: childrenRoute
-  };
-};
 
 const permission = {
   state: {
@@ -77,6 +14,9 @@ const permission = {
     sidebarActiveIndex: localStorage.getItem("sideber-active-key") || "1"
   },
   mutations: {
+    // SET_ROUTERS: (state, routers) => {
+    //   state.authRouters = routers;
+    // },
     SET_ROUTERS: (state, routers) => {
       state.asyncRouter = Conf.HAS_TOP_NAV ? routers : [];
       state.currentRouter = Conf.HAS_TOP_NAV
@@ -89,12 +29,17 @@ const permission = {
           name: "主页",
           hidden: true,
           children: state.cachRouter
+        },
+        {
+          path: "*",
+          name: "404",
+          component: () => import("@/views/404"),
+          hidden: true
         }
       ];
 
       state.addRouters = LayoutComp;
       state.routers = constantRouterMap.concat(LayoutComp);
-      console.log("state.asyncRouter", state.asyncRouter);
     },
     GET_SIDBAR_ROUTERS: (state, index) => {
       localStorage.setItem("topnav-active-key", index);
@@ -109,49 +54,11 @@ const permission = {
   actions: {
     GenerateRoutes({ commit }, data) {
       if (data.rowrouter.length < 1) return;
-      console.log("datadata", data);
       return new Promise(resolve => {
-        var accessedRouters = [];
-        if (data.rowrouter.length > 1) {
-          var userRoutes = Tool.toTreeData(data.rowrouter, {
-            parentId: "parentId",
-            id: "resourceId"
-          });
-          userRoutes = Tool.compare(userRoutes, "sort");
-          for (var i = 0; i < userRoutes.length; i++) {
-            var userRoutesItem = {};
-            const path = userRoutes[i].href;
-            userRoutesItem.meta = {};
-            userRoutesItem.meta.auth = true;
-            userRoutesItem.path = userRoutes[i].href;
-            userRoutesItem.name = userRoutes[i].title;
-            userRoutesItem.icon = userRoutes[i].icon;
-            userRoutesItem.hidden = !userRoutes[i].showFlag;
-            userRoutesItem.index = "" + i;
-            if (userRoutes[i].children) {
-              const allhide = userRoutes[i].children.every(
-                r => r.showFlag === false
-              );
-              console.log("allhide", allhide);
-              if (allhide) {
-                userRoutesItem.toJump = true;
-                userRoutesItem.component = resolve =>
-                  require(["@/views" + path + ".vue"], resolve);
-                permission.state.cachRouter.push(userRoutesItem);
-              }
-
-              const c = getChildRoute(userRoutes[i].children, i);
-              userRoutesItem.childrens = c.level;
-            } else {
-              userRoutesItem.path = path;
-              userRoutesItem.component = resolve =>
-                require(["@/views" + path + ".vue"], resolve);
-              userRoutesItem.toJump = true;
-              permission.state.cachRouter.push(userRoutesItem);
-            }
-            accessedRouters.push(userRoutesItem);
-          }
-        }
+        const GR = GetRoutes(data.rowrouter);
+        const accessedRouters = GR.tree;
+        permission.state.cachRouter = GR.route;
+        console.log("accessedRouters", accessedRouters);
         commit("SET_ROUTERS", accessedRouters);
         resolve();
       });

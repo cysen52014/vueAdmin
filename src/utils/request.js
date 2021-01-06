@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Message } from "element-ui";
+// import { Message } from "element-ui";
 import store from "../store";
 import { getToken } from "@/utils/auth";
 import Tool from "@/utils/Tool";
@@ -73,7 +73,7 @@ service.interceptors.response.use(
     if (error && error.response) {
       switch (error.response.status) {
         case 500:
-          Message.error("服务器错误，请重新刷新");
+          // Message.error("服务器错误，请重新刷新");
           break;
         default:
           break;

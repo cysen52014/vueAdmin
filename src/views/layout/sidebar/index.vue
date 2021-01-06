@@ -2,17 +2,16 @@
   <div>
     <el-menu
       mode="vertical"
-      :default-active="sidebarActiveIndex"
+      :default-active="active"
       :collapse="isCollapse"
-      :default-openeds="openeds"
-      @open="menuOpen"
-      background-color="rgba(255, 255, 255, 1)"
-      text-color="#303133"
-      active-text-color="rgb(67, 111, 237)"
+      background-color="#fff"
+      text-color="#333333"
+      active-text-color="#436fed"
       @changeActive="getSideBarActiveKey"
+      unique-opened
     >
       <sidebar-item
-        v-for="(route,index) in currentRouter"
+        v-for="(route, index) in currentRouter"
         :key="route.name"
         :item="route"
         :index="index"
@@ -20,7 +19,9 @@
       ></sidebar-item>
     </el-menu>
     <div class="menu-bar" @click="changeSidebar()">
-      <i :class="sidebar.opened ? 'el-icon-caret-right' : 'el-icon-caret-left'"></i>
+      <i
+        :class="sidebar.opened ? 'el-icon-caret-right' : 'el-icon-caret-left'"
+      ></i>
     </div>
   </div>
 </template>
@@ -44,7 +45,23 @@ export default {
     },
     getSideBarActiveKey() {
       const key = localStorage.getItem("sideber-active-key");
-      this.active = key ? (this.active = key) : this.active;
+      if (key) {
+        let ii = "";
+        if (this.$route.meta._parent && this.$route.meta._parent[0]._subIndex) {
+          if (
+            this.$route.meta._parent[0]._subIndex &&
+            this.$route.meta._parent[0].meta._parent[0]._subIndex
+          ) {
+            ii = this.$route.meta._parent[0].meta._parent[0]._subIndex;
+          } else {
+            ii = this.$route.meta._parent[0]._subIndex;
+          }
+        } else {
+          ii = key;
+        }
+        const val = ii;
+        this.active = val;
+      }
       return this.active;
     }
   },
@@ -57,7 +74,7 @@ export default {
     },
     changeActive(val) {
       this.active = val;
-      localStorage.setItem("sideber-active-key", val);
+      localStorage.setItem("sideber-active-key", this.active);
     },
     changeSidebar() {
       this.toggleSodebar(!this.sidebar.opened);

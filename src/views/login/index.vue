@@ -1,17 +1,17 @@
 <template>
   <div class="login-page">
     <div class="login-form">
-      <el-form :model="loginForm" :rules="rules" ref="loginForm" class="demo-ruleForm">
-        <el-form-item prop="username" class="login-input">
-          <el-input v-model="loginForm.username" autocomplete="off" placeholder="账号"></el-input>
-        </el-form-item>
-        <el-form-item prop="password" class="login-input">
-          <el-input type="password" v-model="loginForm.password" autocomplete="off" placeholder="密码"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button class="login-btn__submit" type="primary" @click="handleLogin">登陆</el-button>
-        </el-form-item>
-      </el-form>
+      <cys-form v-model="loginForm" :rules="rules" ref="loginForm" class="demo-ruleForm">
+        <cys-form-item :prop="'username'" class="login-input">
+          <cys-input v-model="loginForm.username" autocomplete="off" placeholder="账号"></cys-input>
+        </cys-form-item>
+        <cys-form-item :prop="'password'" class="login-input">
+          <cys-input type="password" v-model="loginForm.password" autocomplete="off" placeholder="密码"></cys-input>
+        </cys-form-item>
+        <cys-form-item>
+          <cys-button class="login-btn__submit" type="primary" @click="handleLogin">登陆</cys-button>
+        </cys-form-item>
+      </cys-form>
     </div>
   </div>
 </template>
@@ -77,7 +77,13 @@ export default {
   top: 50%;
   margin-top: -110px;
   margin-left: -179px;
-  .login-input .el-input__inner {
+  .cys-form-input {
+    width: 100%
+  }
+  .cys-input {
+    width: 100%!important;
+  }
+  .login-input .cys-input--inner {
     height: 40px;
     line-height: 40px;
   }
@@ -85,6 +91,9 @@ export default {
 .login-btn__submit {
   width: 100%;
   height: 40px;
+  padding: 0;
+  text-align: center;
+  line-height: 40px;
 }
 
 .isMoblie {

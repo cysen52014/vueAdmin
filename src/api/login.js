@@ -1,4 +1,5 @@
 import request from "@/utils/request";
+import routermap from "./routermap";
 
 export function login(username, password) {
   const data = {
@@ -15,14 +16,21 @@ export function login(username, password) {
 }
 
 export function getInfo() {
-  const params = {
-    identifier: "advSystem"
-  };
-  return request({
-    proxy: "uaa",
-    url: "/resource/getMenuForToken",
-    params,
-    method: "get"
+  // const params = {
+  //   identifier: "advSystem"
+  // };
+  // return request({
+  //   proxy: "uaa",
+  //   url: "/resource/getMenuForToken",
+  //   params,
+  //   method: "get"
+  // });
+  return new Promise((resolve, reject) => {
+    resolve({
+      code: "0",
+      data: routermap,
+      msg: "success"
+    });
   });
 }
 

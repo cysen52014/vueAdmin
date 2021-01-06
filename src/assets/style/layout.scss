@@ -107,6 +107,21 @@
       right: 35px;
       top: 0;
 
+      .cys-base-dropdown--content {
+        width: 150px;
+        right: 0;
+        ul {
+          padding: 0;
+          margin: 0;
+          line-height: 40px;
+          li {
+            list-style: none;
+            padding: 0 15px;
+            text-align: center;
+          }
+        }
+      }
+
       .avatar-wrapper {
         cursor: pointer;
         position: relative;

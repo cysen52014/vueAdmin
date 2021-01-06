@@ -1,8 +1,6 @@
 import Vue from "vue";
 
 import "normalize.css/normalize.css";
-import ElementUI from "element-ui";
-import "element-ui/lib/theme-chalk/index.css";
 import filters from "@/filters";
 import "@/assets/style/common.scss";
 
@@ -13,18 +11,23 @@ import store from "./store";
 import "./permission"; // permission control
 import "./debug"; // 错误日志收集
 
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+
+import "cys-ui/static/css/cysui.css";
+
 import broadcast from "@/mixins/broadcast";
 Vue.prototype.$espread = broadcast;
 
-import ysVue from "ys-vue";
-Vue.use(ysVue);
-
-window.__storevueappdate__state_formData = {};
-window.__storevueappdate__state_queue = {};
+import CysUi from "cys-ui";
+CysUi.install(Vue);
 
 Vue.use(ElementUI, {
   size: "small" // default: medium
 });
+
+window.__storevueappdate__state_formData = {};
+window.__storevueappdate__state_queue = {};
 
 Vue.config.productionTip = false;
 Vue.use(filters);
